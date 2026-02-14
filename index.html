@@ -1,0 +1,116 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>A Special Message</title>
+    <style>
+        :root {
+            --primary-red: #ff4d6d;
+            --soft-pink: #fff0f3;
+            --dark-pink: #c9184a;
+        }
+
+        body {
+            margin: 0;
+            padding: 0;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+            background-color: var(--soft-pink);
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+
+        .card {
+            background: white;
+            padding: 2.5rem;
+            border-radius: 20px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.1);
+            text-align: center;
+            max-width: 350px;
+            width: 90%;
+            transition: transform 0.3s ease;
+        }
+
+        .card:hover {
+            transform: translateY(-5px);
+        }
+
+        h1 {
+            color: var(--dark-pink);
+            margin-bottom: 1rem;
+            font-size: 1.8rem;
+        }
+
+        .heart {
+            color: var(--primary-red);
+            font-size: 50px;
+            margin-bottom: 1rem;
+            animation: pulse 1.5s infinite;
+        }
+
+        @keyframes pulse {
+            0% { transform: scale(1); }
+            50% { transform: scale(1.1); }
+            100% { transform: scale(1); }
+        }
+
+        button {
+            background-color: var(--primary-red);
+            color: white;
+            border: none;
+            padding: 12px 25px;
+            border-radius: 25px;
+            font-size: 1rem;
+            cursor: pointer;
+            transition: background 0.3s ease;
+            font-weight: bold;
+        }
+
+        button:hover {
+            background-color: var(--dark-pink);
+        }
+
+        #secret-message {
+            margin-top: 1.5rem;
+            color: #555;
+            font-style: italic;
+            line-height: 1.6;
+            display: none; /* Hidden by default */
+            opacity: 0;
+            transition: opacity 0.8s ease;
+        }
+
+        .show {
+            display: block !important;
+            opacity: 1 !important;
+        }
+    </style>
+</head>
+<body>
+
+    <div class="card">
+        <div class="heart">❤️</div>
+        <h1>Happy Valentine's Day Seema!</h1>
+        <p>I have a small note for you...</p>
+        
+        <button onclick="revealMessage()">Click to Open</button>
+
+        <div id="secret-message">
+            "I really value what we have. <br> 
+            <strong>Hope our bond gets stronger day by day.</strong>"
+        </div>
+    </div>
+
+    <script>
+        function revealMessage() {
+            const message = document.getElementById('secret-message');
+            const btn = document.querySelector('button');
+            
+            message.classList.add('show');
+            btn.style.display = 'none'; // Hide button after click
+        }
+    </script>
+</body>
+</html>
