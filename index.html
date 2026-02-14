@@ -19,35 +19,92 @@
             align-items: center;
             min-height: 100vh;
             background-color: var(--soft-pink);
-            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            font-family: 'Segoe UI', sans-serif;
+            overflow: hidden;
         }
 
         .card {
             background: white;
-            padding: 2.5rem;
+            padding: 3rem;
             border-radius: 20px;
-            box-shadow: 0 10px 30px rgba(0,0,0,0.1);
+            box-shadow: 0 15px 35px rgba(255, 77, 109, 0.2);
             text-align: center;
-            max-width: 350px;
-            width: 90%;
-            transition: transform 0.3s ease;
+            max-width: 400px;
+            width: 85%;
+            min-height: 250px;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            position: relative;
         }
 
-        .card:hover {
-            transform: translateY(-5px);
-        }
-
-        h1 {
-            color: var(--dark-pink);
-            margin-bottom: 1rem;
-            font-size: 1.8rem;
+        /* Elements to hide */
+        .content-front {
+            transition: opacity 0.5s ease, transform 0.5s ease;
+            width: 100%;
         }
 
         .heart {
             color: var(--primary-red);
-            font-size: 50px;
+            font-size: 60px;
             margin-bottom: 1rem;
             animation: pulse 1.5s infinite;
+        }
+
+        h1 {
+            color: var(--dark-pink);
+            font-size: 1.6rem;
+            margin-bottom: 1.5rem;
+        }
+
+        button {
+            background-color: var(--primary-red);
+            color: white;
+            border: none;
+            padding: 15px 30px;
+            border-radius: 50px;
+            font-size: 1.1rem;
+            cursor: pointer;
+            font-weight: bold;
+            box-shadow: 0 4px 15px rgba(255, 77, 109, 0.3);
+            transition: all 0.3s ease;
+        }
+
+        button:hover {
+            transform: scale(1.05);
+            background-color: var(--dark-pink);
+        }
+
+        /* The Secret Message */
+        #secret-message {
+            display: none;
+            opacity: 0;
+            transform: translateY(20px);
+            transition: all 1s ease;
+            color: #444;
+            font-size: 1.3rem;
+            line-height: 1.6;
+            font-style: italic;
+        }
+
+        #secret-message strong {
+            color: var(--dark-pink);
+            display: block;
+            margin-top: 10px;
+        }
+
+        /* Animation Classes */
+        .fade-out {
+            opacity: 0;
+            transform: scale(0.9);
+            pointer-events: none;
+        }
+
+        .fade-in {
+            display: block !important;
+            opacity: 1 !important;
+            transform: translateY(0) !important;
         }
 
         @keyframes pulse {
@@ -55,61 +112,40 @@
             50% { transform: scale(1.1); }
             100% { transform: scale(1); }
         }
-
-        button {
-            background-color: var(--primary-red);
-            color: white;
-            border: none;
-            padding: 12px 25px;
-            border-radius: 25px;
-            font-size: 1rem;
-            cursor: pointer;
-            transition: background 0.3s ease;
-            font-weight: bold;
-        }
-
-        button:hover {
-            background-color: var(--dark-pink);
-        }
-
-        #secret-message {
-            margin-top: 1.5rem;
-            color: #555;
-            font-style: italic;
-            line-height: 1.6;
-            display: none; /* Hidden by default */
-            opacity: 0;
-            transition: opacity 0.8s ease;
-        }
-
-        .show {
-            display: block !important;
-            opacity: 1 !important;
-        }
     </style>
 </head>
 <body>
 
     <div class="card">
-        <div class="heart">❤️</div>
-        <h1>Happy Valentine's Day Seema!</h1>
-        <p>I have a small note for you...</p>
-        
-        <button onclick="revealMessage()">Click to Open</button>
+        <div id="front-view" class="content-front">
+            <div class="heart">❤️</div>
+            <h1>Happy Valentine's Day Seema!</h1>
+            <button onclick="revealMessage()">Open Message</button>
+        </div>
 
         <div id="secret-message">
-            "I really value what we have. <br> 
+            "In case nobody wished you today, let me take little bit effort to create this site. <br>
+            I wish you a happy valentine's day. I hope this will make your day a little bit better <br>
+            (I hope so,finger crossed).<br>
+            I really value what we have.<br>
             <strong>Hope our bond gets stronger day by day.</strong>"
+            <div style="margin-top: 20px; font-size: 2rem;">✨</div>
         </div>
     </div>
 
     <script>
         function revealMessage() {
+            const front = document.getElementById('front-view');
             const message = document.getElementById('secret-message');
-            const btn = document.querySelector('button');
-            
-            message.classList.add('show');
-            btn.style.display = 'none'; // Hide button after click
+
+            // 1. Fade out the front content
+            front.classList.add('fade-out');
+
+            // 2. Wait for fade out to finish, then show the message
+            setTimeout(() => {
+                front.style.display = 'none';
+                message.classList.add('fade-in');
+            }, 500);
         }
     </script>
 </body>
